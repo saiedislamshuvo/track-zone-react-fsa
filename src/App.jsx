@@ -1,45 +1,47 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from 'react';
+import ClockForm from './components/clock/ClockForm';
+import ClockList from './components/clock/ClockList';
+import DefaultClock from './components/clock/DefaultClock';
+import Event from './components/event/Event';
+import useClock from './hooks/useClock';
+import useEvent from './hooks/useEvent';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	const [clockId, setClockId] = useState(null);
+	const { clock, clocks, editClock, deleteClock, handleChange, handleSubmit } = useClock();
+	const { event, events, deleteEvent, handleChange: handleEventChange, handleSubmit: handleEventSubmit } = useEvent();
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
-}
+	const handleClockView = (clockId) => setClockId(clockId);
 
-export default App
+	const filterEventsbyClockId = (events) => events.filter(event => event.clockId == clockId);
+
+	return (
+		<div style={{ width: '786px', margin: 'auto' }}>
+			<DefaultClock />
+			<ClockForm
+				clock={clock}
+				handleSubmit={handleSubmit}
+				handleChange={handleChange}
+			/>
+			<div style={{ display: 'flex', justifyContent: 'space-between', }}>
+				<ClockList
+					clocks={clocks ?? []}
+					handleClockView={handleClockView}
+					editClock={editClock}
+					deleteClock={deleteClock}
+					clockId={clockId}
+				/>
+				{clockId && <Event
+					event={event}
+					events={filterEventsbyClockId(events)}
+					clockId={clockId}
+					handleChange={handleEventChange}
+					handleSubmit={handleEventSubmit}
+					deleteEvent={deleteEvent}
+				/>}
+			</div>
+		</div>
+	);
+};
+
+export default App;
