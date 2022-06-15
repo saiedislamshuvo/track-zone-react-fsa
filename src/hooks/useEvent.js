@@ -5,11 +5,9 @@ const getId = generateId();
 
 const EVENT_INIT = {
     'id': '',
-    'clockId': '',
+    'clockInfo': '',
     'title': '',
-    'date': '',
     'time': '',
-    'checked': false,
 };
 
 const useEvent = () => {
@@ -23,12 +21,12 @@ const useEvent = () => {
         });
     };
 
-    const handleSubmit = (e, clockId) => {
+    const handleSubmit = (e, clockInfo) => {
         e.preventDefault();
         const eventState = {
             ...event,
             id: getId.next().value,
-            clockId,
+            clockInfo,
         };
         setEvents([...events, eventState]);
         clearEvent();

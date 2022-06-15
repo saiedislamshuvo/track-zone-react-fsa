@@ -7,13 +7,26 @@ import useClock from './hooks/useClock';
 import useEvent from './hooks/useEvent';
 
 const App = () => {
-	const [clockId, setClockId] = useState(null);
-	const { clock, clocks, editClock, deleteClock, handleChange, handleSubmit } = useClock();
-	const { event, events, deleteEvent, handleChange: handleEventChange, handleSubmit: handleEventSubmit } = useEvent();
 
-	const handleClockView = (clockId) => setClockId(clockId);
-
-	const filterEventsbyClockId = (events) => events.filter(event => event.clockId == clockId);
+	const {
+		clock,
+		clocks,
+		clockInfo,
+		editClock,
+		deleteClock,
+		handleChange,
+		handleSubmit,
+		handleClockInfo,
+		filterEventsbyClockId,
+		clearClockInfo,
+	} = useClock();
+	const {
+		event,
+		events,
+		deleteEvent,
+		handleChange: handleEventChange,
+		handleSubmit: handleEventSubmit
+	} = useEvent();
 
 	return (
 		<div style={{ width: '786px', margin: 'auto' }}>
@@ -26,18 +39,19 @@ const App = () => {
 			<div style={{ display: 'flex', justifyContent: 'space-between', }}>
 				<ClockList
 					clocks={clocks ?? []}
-					handleClockView={handleClockView}
 					editClock={editClock}
 					deleteClock={deleteClock}
-					clockId={clockId}
+					handleClockInfo={handleClockInfo}
+					clockId={clockInfo?.id || ''}
 				/>
-				{clockId && <Event
+				{(clockInfo?.id || false) && <Event
 					event={event}
 					events={filterEventsbyClockId(events)}
-					clockId={clockId}
+					clockInfo={clockInfo}
 					handleChange={handleEventChange}
 					handleSubmit={handleEventSubmit}
 					deleteEvent={deleteEvent}
+					clearClockInfo={clearClockInfo}
 				/>}
 			</div>
 		</div>

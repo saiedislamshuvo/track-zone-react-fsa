@@ -1,7 +1,7 @@
-import { getDate } from '../../utils/datetime';
+import { getDate, getDateTimeDiff } from '../../utils/datetime';
 import Clock from './Clock';
 
-const ClockCard = ({ clock, handleClockView, editClock, deleteClock, clockId }) => {
+const ClockCard = ({ clock, handleClockInfo, editClock, deleteClock, clockId }) => {
     return (
         <div style={{
             width: '250px',
@@ -14,7 +14,8 @@ const ClockCard = ({ clock, handleClockView, editClock, deleteClock, clockId }) 
             <h2><Clock datetime={new Date(clock.time)} /> ({clock.id})</h2>
             <p style={{ fontWeight: 'bold' }}>Date: {getDate(new Date(clock.time))}</p>
             <p style={{ fontWeight: 'bold' }}>Time Zone: {clock.timezone}</p>
-            <button type='button' onClick={(_) => handleClockView(clock.id)}>View</button>
+            <p style={{ fontWeight: 'bold' }}>Diff: {getDateTimeDiff(new Date(clock.time), new Date())}</p>
+            <button type='button' onClick={(_) => handleClockInfo(clock)}>View</button>
             <button type='button' onClick={(_) => editClock(clock)}>Edit</button>
             <button type='button' onClick={(_) => deleteClock(clock.id)}>Delete</button>
         </div >

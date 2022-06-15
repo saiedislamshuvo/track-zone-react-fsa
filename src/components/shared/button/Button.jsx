@@ -1,10 +1,10 @@
-const Button = ({ type, value }) => {
+const Button = ({ type, value, color }) => {
     return (
         <div style={{ height: '40px' }}>
             <button
                 type={type ?? 'button'}
                 style={{
-                    background: '#4C35AE',
+                    background: color || '#4C35AE',
                     color: '#fff',
                     border: '#fff',
                     outline: 'none',

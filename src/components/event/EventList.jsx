@@ -1,6 +1,6 @@
 import EventCard from './EventCard';
 
-const EventList = ({ events, deleteEvent }) => {
+const EventList = ({ events, deleteEvent, clockInfo }) => {
     return (
         <>
             {events.map(event => (
@@ -8,6 +8,7 @@ const EventList = ({ events, deleteEvent }) => {
                     key={event.id}
                     event={event}
                     deleteEvent={deleteEvent}
+                    clockInfo={clockInfo}
                 />
             ))}
         </>

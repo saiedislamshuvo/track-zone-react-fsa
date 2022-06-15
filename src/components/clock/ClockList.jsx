@@ -1,6 +1,6 @@
 import ClockCard from './ClockCard';
 
-const ClockList = ({ clocks, editClock, deleteClock, handleClockView, clockId }) => {
+const ClockList = ({ clocks, editClock, deleteClock, handleClockInfo, clockId }) => {
     let child = clocks.length === 0
         ? (<div>
             <h3 style={{ textAlign: 'start', marginTop: '10px', marginBottom: '5px', }}>Clock list is empty!</h3>
@@ -12,7 +12,7 @@ const ClockList = ({ clocks, editClock, deleteClock, handleClockView, clockId })
                 <ClockCard
                     key={clock.id}
                     clock={clock}
-                    handleClockView={handleClockView}
+                    handleClockInfo={handleClockInfo}
                     editClock={editClock}
                     deleteClock={deleteClock}
                     clockId={clockId}

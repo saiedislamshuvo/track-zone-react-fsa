@@ -1,4 +1,6 @@
-const EventCard = ({ event, deleteEvent }) => {
+import { getEventDateTimeDiff } from '../../utils/datetime';
+
+const EventCard = ({ event, deleteEvent, clockInfo }) => {
     return (
         <div
             style={{
@@ -16,13 +18,12 @@ const EventCard = ({ event, deleteEvent }) => {
                     alignItems: 'center',
                 }}>
                 <h4>{event.title}</h4>
-                <p>{event.date}</p>
                 <p>{event.time}</p>
                 <div>
                     <button type='button' onClick={(_) => deleteEvent(event.id)}>Remove</button>
                 </div>
             </div>
-            <h4>Will Show Diffrence on time</h4>
+            <h4>Event Start After: {getEventDateTimeDiff(new Date(clockInfo.time), new Date(), new Date(event.time))}</h4>
         </div>
     );
 };

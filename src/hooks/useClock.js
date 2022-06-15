@@ -14,6 +14,7 @@ const useClock = () => {
     const [clocks, setClocks] = useState([]);
     const [clock, setClock] = useState({ ...CLOCK_INIT });
     const [isEdit, setIsEdit] = useState(false);
+    const [clockInfo, setClockInfo] = useState(null);
 
     const handleChange = (e) => {
         setClock({
@@ -54,17 +55,28 @@ const useClock = () => {
             return clock;
         });
         setClocks([...clockState]);
+        clearClockInfo();
     };
 
     const clearClock = () => setClock({ ...CLOCK_INIT });
 
+    const handleClockInfo = (clock) => setClockInfo(clock);
+
+    const filterEventsbyClockId = (events) => events.filter(event => (event?.clockInfo?.id ?? '') == (clockInfo?.id ?? ''));
+
+    const clearClockInfo = () => setClockInfo(null);
+
     return {
         clock,
         clocks,
+        clockInfo,
         handleChange,
         handleSubmit,
         deleteClock,
         editClock,
+        handleClockInfo,
+        filterEventsbyClockId,
+        clearClockInfo,
     };
 };
 
